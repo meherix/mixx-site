@@ -2,795 +2,820 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>mixx</title>
-
-  <meta name="description"
-    content="mixx helps kitchens predict meal demand, optimize production, and cut waste with intuitive dashboards and real-time sustainability tracking." />
-  <meta name="theme-color" content="#16a34a" />
-  <link rel="icon" href="mixx.png" />
-
-  <meta property="og:title" content="mixx — Food Demand Prediction" />
-  <meta property="og:description"
-    content="Predict demand, reduce waste, and track impact with AI built for kitchens." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="/mixx-cover.png" />
-  <meta property="og:url" content="https://your-domain.example/mixx.html" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@600;800&display=swap"
-    rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #ffffff;
-      --ink: #0b2535;
-      --muted: #55677b;
-      --brand: #16a34a;
-      --brand-ink: #ffffff;
-      --line: #e6edf3;
-      --card: #ffffff;
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(11, 37, 53, .08);
-      --maxw: 1160px;
-      --accent: #0ea5e9;
-      --ok: #16a34a;
-      --warn: #eab308;
-      --danger: #ef4444;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: linear-gradient(180deg, #f6fbf7 0%, #fff 40%);
-      color: var(--muted);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    h1,
-    h2,
-    h3 {
-      color: var(--ink);
-      margin: .2rem 0 .6rem;
-      line-height: 1.2;
-    }
-
-    p {
-      margin-top: 0;
-      margin-bottom: .6rem;
-    }
-
-    .muted {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    /* LAYOUT UTILITIES */
-
-    .container {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-
-    section {
-      padding: 3rem 0;
-      border-top: 1px solid var(--line);
-    }
-
-    header.hero {
-      padding: 5rem 0 3rem;
-      border-bottom: 1px solid var(--line);
-    }
-
-    /* NAVBAR */
-
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.25rem;
-      padding: 0.9rem 0;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: var(--ink);
-      letter-spacing: 0.03em;
-    }
-
-    .brand__logo {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 2px solid var(--brand);
-      object-fit: cover;
-      box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25);
-      background: #e8f7ed;
-    }
-
-    .navlinks {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.4rem 0.7rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      border: 1px solid var(--line);
-      background: #ffffff;
-      white-space: nowrap;
-    }
-
-    .nav__toggle {
-      display: none;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 0.3rem 0.6rem;
-      font-size: 0.8rem;
-      background: #fff;
-      cursor: pointer;
-    }
-
-    @media (max-width: 720px) {
-      .nav__inner {
-        flex-wrap: wrap;
-      }
-
-      .navlinks {
-        width: 100%;
-        order: 2;
-        justify-content: flex-start;
-        overflow-x: auto;
-      }
-    }
-
-    /* BUTTONS */
-
-    .btn {
-      padding: .9rem 1.1rem;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.95rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
-      white-space: nowrap;
-    }
-
-    .btn--primary {
-      background: var(--brand);
-      color: var(--brand-ink);
-      box-shadow: 0 10px 25px rgba(22, 163, 74, 0.35);
-    }
-
-    .btn--primary:hover {
-      filter: brightness(1.05);
-    }
-
-    .btn--ghost {
-      background: #fff;
-      border-color: var(--line);
-      color: var(--brand);
-    }
-
-    .badge {
-      display: inline-block;
-      padding: .35rem .6rem;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
-      font-weight: 700;
-      font-size: 0.8rem;
-      text-align: center;
-    }
-
-    /* GRID / CARDS */
-
-    .grid {
-      display: grid;
-      gap: clamp(1rem, 2vw, 1.5rem);
-    }
-
-    .grid-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .grid-2 {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .grid-4 {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    @media (max-width: 980px) {
-      .hero__grid {
-        grid-template-columns: 1fr;
-      }
-
-      .grid-3 {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .grid-4 {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 640px) {
-
-      .grid-3,
-      .grid-4 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.2rem;
-    }
-
-    .card h3 {
-      margin: .2rem 0 .4rem;
-    }
-
-    /* HERO */
-
-    .hero__grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-      gap: clamp(1.5rem, 3vw, 2.5rem);
-      align-items: center;
-    }
-
-    .hero__sub {
-      font-size: 1rem;
-      max-width: 32rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      font-weight: 800;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-
-    .cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 1.5rem;
-    }
-
-    /* HEADINGS / KICKER */
-
-    .kicker {
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 800;
-      font-size: .8rem;
-      margin-bottom: .2rem;
-    }
-
-    section h2 {
-      font-size: 1.6rem;
-    }
-
-    /* ICON */
-
-    .icon {
-      font-size: 1.35rem;
-    }
-
-    /* TIMELINE */
-
-    .timeline {
-      position: relative;
-      padding-left: 1.5rem;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: .5rem;
-      top: .2rem;
-      bottom: .2rem;
-      width: 2px;
-      background: linear-gradient(#c8f5d6, #dfeaf2);
-    }
-
-    .step {
-      position: relative;
-      margin: 0 0 1rem 0;
-      padding-left: 1rem;
-    }
-
-    .step h3 {
-      font-size: 1rem;
-    }
-
-    /* MOCK DASHBOARD BOXES */
-
-    .mock {
-      aspect-ratio: 16/9;
-      border: 1px dashed var(--line);
-      border-radius: 14px;
-      background: repeating-linear-gradient(45deg, #fbfefb, #fbfefb 10px, #f3faf4 10px, #f3faf4 20px);
-      display: grid;
-      place-items: center;
-      color: #86b98f;
-      font-size: 0.9rem;
-      text-align: center;
-      padding: 0.5rem;
-    }
-
-    /* FORM */
-
-    input,
-    textarea {
-      font-family: inherit;
-      font-size: 0.95rem;
-    }
-
-    label {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    /* FOOTER */
-
-    footer {
-      padding: 2.2rem 0;
-      border-top: 1px solid var(--line);
-      margin-top: 2rem;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    footer .grid-2 {
-      align-items: center;
-    }
-
-    footer p {
-      margin: 0.25rem 0;
-    }
-
-    footer a {
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-    }
-
-    @media (max-width: 640px) {
-      footer .grid-2 {
-        grid-template-columns: 1fr;
-      }
-
-      footer p:last-child {
-        text-align: left !important;
-      }
-    }
-  </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>mixx</title>
+
+    <meta name="description"
+        content="mixx helps kitchens predict meal demand, optimize production, and cut waste with intuitive dashboards and real-time sustainability tracking." />
+    <meta name="theme-color" content="#16a34a" />
+    <link rel="icon" href="mixx.png" />
+
+    <meta property="og:title" content="mixx — Food Demand Prediction" />
+    <meta property="og:description"
+        content="Predict demand, reduce waste, and track impact with AI built for kitchens." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/mixx-cover.png" />
+    <meta property="og:url" content="https://your-domain.example/mixx.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@600;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #ffffff;
+            --ink: #0b2535;
+            --muted: #55677b;
+            --brand: #16a34a;
+            --brand-ink: #ffffff;
+            --line: #e6edf3;
+            --card: #ffffff;
+            --radius: 16px;
+            --shadow: 0 10px 30px rgba(11, 37, 53, .08);
+            --maxw: 1160px;
+            --accent: #0ea5e9;
+            --ok: #16a34a;
+            --warn: #eab308;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: linear-gradient(180deg, #f6fbf7 0%, #fff 40%);
+            color: var(--muted);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: var(--ink);
+            margin: .2rem 0 .6rem;
+            line-height: 1.2;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: .6rem;
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* LAYOUT UTILITIES */
+
+        .container {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        section {
+            padding: 3rem 0;
+            border-top: 1px solid var(--line);
+        }
+
+        header.hero {
+            padding: 5rem 0 3rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        /* NAVBAR */
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.25rem;
+            padding: 0.9rem 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--ink);
+            letter-spacing: 0.03em;
+        }
+
+        .brand__logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            border: 2px solid var(--brand);
+            object-fit: cover;
+            box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25);
+            background: #e8f7ed;
+        }
+
+        .navlinks {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            border: 1px solid var(--line);
+            background: #ffffff;
+            white-space: nowrap;
+        }
+
+        .nav__toggle {
+            display: none;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        @media (max-width: 720px) {
+            .nav__inner {
+                flex-wrap: wrap;
+            }
+
+            .nav__toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .navlinks {
+                width: 100%;
+                order: 3;
+                justify-content: flex-start;
+                flex-direction: column;
+                gap: 0.35rem;
+                padding-top: 0.4rem;
+                padding-bottom: 0.6rem;
+                display: none;
+            }
+
+            .navlinks.is-open {
+                display: flex;
+            }
+        }
+
+        /* BUTTONS */
+
+        .btn {
+            padding: .9rem 1.1rem;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            white-space: nowrap;
+        }
+
+        .btn--primary {
+            background: var(--brand);
+            color: var(--brand-ink);
+            box-shadow: 0 10px 25px rgba(22, 163, 74, 0.35);
+        }
+
+        .btn--primary:hover {
+            filter: brightness(1.05);
+        }
+
+        .btn--ghost {
+            background: #fff;
+            border-color: var(--line);
+            color: var(--brand);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: .35rem .6rem;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: #fff;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        /* GRID / CARDS */
+
+        .grid {
+            display: grid;
+            gap: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        @media (max-width: 980px) {
+            .hero__grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .grid-4 {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.2rem;
+        }
+
+        .card h3 {
+            margin: .2rem 0 .4rem;
+        }
+
+        /* HERO */
+
+        .hero__grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+            gap: clamp(1.5rem, 3vw, 2.5rem);
+            align-items: center;
+        }
+
+        .hero__sub {
+            font-size: 1rem;
+            max-width: 32rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            font-family: 'Poppins', system-ui, sans-serif;
+        }
+
+        .cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        /* HEADINGS / KICKER */
+
+        .kicker {
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 800;
+            font-size: .8rem;
+            margin-bottom: .2rem;
+        }
+
+        section h2 {
+            font-size: 1.6rem;
+        }
+
+        /* ICON */
+
+        .icon {
+            font-size: 1.35rem;
+        }
+
+        /* TIMELINE */
+
+        .timeline {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: .5rem;
+            top: .2rem;
+            bottom: .2rem;
+            width: 2px;
+            background: linear-gradient(#c8f5d6, #dfeaf2);
+        }
+
+        .step {
+            position: relative;
+            margin: 0 0 1rem 0;
+            padding-left: 1rem;
+        }
+
+        .step h3 {
+            font-size: 1rem;
+        }
+
+        /* MOCK DASHBOARD BOXES */
+
+        .mock {
+            aspect-ratio: 16/9;
+            border: 1px dashed var(--line);
+            border-radius: 14px;
+            background: repeating-linear-gradient(45deg, #fbfefb, #fbfefb 10px, #f3faf4 10px, #f3faf4 20px);
+            display: grid;
+            place-items: center;
+            color: #86b98f;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        /* FORM */
+
+        input,
+        textarea {
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 2.2rem 0;
+            border-top: 1px solid var(--line);
+            margin-top: 2rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        footer .grid-2 {
+            align-items: center;
+        }
+
+        footer p {
+            margin: 0.25rem 0;
+        }
+
+        footer a {
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+        }
+
+        @media (max-width: 640px) {
+            footer .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            footer p:last-child {
+                text-align: left !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="container nav__inner">
-      <a class="brand" href="#top" aria-label="mixx Home">
-        <!-- LOGO: r.jpg -->
-        <img src="mixx_square.png" alt="mixx logo" class="brand__logo" />
-        <span>mixx</span>
-      </a>
-      <button class="nav__toggle" onclick="document.querySelector('.navlinks').classList.toggle('is-open')">
-        Menu
-      </button>
-      <div class="navlinks">
-        <a class="pill" href="#solutions">Solutions</a>
-        <a class="pill" href="#data-collection">Data</a>
-        <a class="pill" href="#dash">Dashboards</a>
-        <a class="pill" href="#process">Process</a>
-        <a class="pill" href="#contact">Contact</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <header id="top" class="hero">
-    <div class="container hero__grid">
-      <div>
-        <h1>Food demand prediction. Optimize production. Waste reduction.</h1>
-        <p class="hero__sub">
-          mixx uses historical sales, context signals, and lightweight forecasting to help chefs plan the
-          right
-          amount—cutting overproduction, costs, and CO₂. Real-time dashboards keep everyone aligned.
-        </p>
-        <div class="cta">
-          <a class="btn btn--primary" href="#contact">Book a Pilot</a>
-          <a class="btn btn--ghost" href="#result">See the Impact</a>
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="container nav__inner">
+            <a class="brand" href="#top" aria-label="mixx Home">
+                <img src="mixx_square.png" alt="mixx logo" class="brand__logo" />
+                <span>mixx</span>
+            </a>
+            <button class="nav__toggle" type="button" onclick="toggleNav()">
+                Menu
+            </button>
+            <div class="navlinks">
+                <a class="pill" href="#solutions" onclick="closeNavOnMobile()">Solutions</a>
+                <a class="pill" href="#data-collection" onclick="closeNavOnMobile()">Data</a>
+                <a class="pill" href="#dash" onclick="closeNavOnMobile()">Dashboards</a>
+                <a class="pill" href="#process" onclick="closeNavOnMobile()">Process</a>
+                <!-- Contact now links to external MEHErix contact page -->
+                <a class="pill" href="https://meherix.com/contact.html" onclick="closeNavOnMobile()">Contact</a>
+            </div>
         </div>
-      </div>
-      <div class="card">
-        <div class="kicker">At a glance</div>
-        <h3>Built for kitchens</h3>
-        <p>Fast setup • POS + Weather • Easy for chefs • Clear ROI</p>
-        <div class="grid grid-2">
-          <div class="badge">⬇️ Waste</div>
-          <div class="badge">⬆️ Accuracy</div>
-          <div class="badge">💶 Savings</div>
-          <div class="badge">🌍 CO₂ down</div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="top" class="hero">
+        <div class="container hero__grid">
+            <div>
+                <h1>Food demand prediction. Optimize production. Waste reduction.</h1>
+                <p class="hero__sub">
+                    mixx uses historical sales, context signals, and lightweight forecasting to help chefs plan the
+                    right
+                    amount—cutting overproduction, costs, and CO₂. Real-time dashboards keep everyone aligned.
+                </p>
+                <div class="cta">
+                    <a class="btn btn--primary" href="https://meherix.com/contact.html">Book a Meeting</a>
+                    <a class="btn btn--ghost" href="#result">See the Impact</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="kicker">At a glance</div>
+                <h3>Built for kitchens</h3>
+                <p>Fast setup • POS + Weather • Easy for chefs • Clear ROI</p>
+                <div class="grid grid-2">
+                    <div class="badge">⬇️ Waste</div>
+                    <div class="badge">⬆️ Accuracy</div>
+                    <div class="badge">💶 Savings</div>
+                    <div class="badge">🌍 CO₂ down</div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <!-- KEY SOLUTIONS -->
-    <section id="solutions">
-      <div class="container">
-        <div class="kicker">Key Solutions</div>
-        <h2>What mixx delivers</h2>
-        <div class="grid grid-3" style="margin-top:1rem">
-          <article class="card">
-            <div class="icon">🍽️</div>
-            <h3>Predict meal demand</h3>
-            <p>Use AI with historical patterns to forecast portions by day and meal period.</p>
-          </article>
-          <article class="card">
-            <div class="icon">🌦️</div>
-            <h3>Context-aware accuracy</h3>
-            <p>Integrate weather, holidays, and local events for sharper predictions.</p>
-          </article>
-          <article class="card">
-            <div class="icon">♻️</div>
-            <h3>Cut overproduction</h3>
-            <p>Plan right-sized batches to reduce food waste and lower CO₂ emissions.</p>
-          </article>
-          <article class="card">
-            <div class="icon">💶</div>
-            <h3>Track savings</h3>
-            <p>Monitor cost and sustainability savings in real time as menus are produced.</p>
-          </article>
-          <article class="card">
-            <div class="icon">📊</div>
-            <h3>Intuitive dashboards</h3>
-            <p>Chef-friendly views for today’s prep and manager views for trends &amp; goals.</p>
-          </article>
+    <main>
+        <!-- KEY SOLUTIONS -->
+        <section id="solutions">
+            <div class="container">
+                <div class="kicker">Key Solutions</div>
+                <h2>What mixx delivers</h2>
+                <div class="grid grid-3" style="margin-top:1rem">
+                    <article class="card">
+                        <div class="icon">🍽️</div>
+                        <h3>Predict meal demand</h3>
+                        <p>Use AI with historical patterns to forecast portions by day and meal period.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon">🌦️</div>
+                        <h3>Context-aware accuracy</h3>
+                        <p>Integrate weather, holidays, and local events for sharper predictions.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon">♻️</div>
+                        <h3>Cut overproduction</h3>
+                        <p>Plan right-sized batches to reduce food waste and lower CO₂ emissions.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon">💶</div>
+                        <h3>Track savings</h3>
+                        <p>Monitor cost and sustainability savings in real time as menus are produced.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon">📊</div>
+                        <h3>Intuitive dashboards</h3>
+                        <p>Chef-friendly views for today’s prep and manager views for trends &amp; goals.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- MORE SERVICES -->
+        <section id="more-services">
+            <div class="container">
+                <div class="kicker">Expansion</div>
+                <h2>See all the ways we can help you</h2>
+                <div class="grid grid-3" style="margin-top:1rem">
+                    <article class="card">
+                        <h3>Business &amp; financial purposes</h3>
+                        <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
+                            <li><strong>Revenue tracking:</strong> Monitor daily income and compare against targets.
+                            </li>
+                            <li><strong>Profitability analysis:</strong> See which menu items bring the highest margins.
+                            </li>
+                            <li><strong>Cash flow planning:</strong> Predict when you’ll need more working capital.</li>
+                            <li><strong>Investment decisions:</strong> Use data to justify expansion or marketing spend.
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>🍽 Menu &amp; Customer Experience</h3>
+                        <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
+                            <li><strong>Menu optimization:</strong> Identify best-selling dishes vs. items that rarely
+                                sell.</li>
+                            <li><strong>Dynamic pricing:</strong> Adjust prices based on demand (e.g., happy hour
+                                discounts).</li>
+                            <li><strong>Personalized offers:</strong> Recommend dishes to repeat customers based on past
+                                orders.</li>
+                            <li><strong>Customer satisfaction:</strong> Link sales with feedback to improve service
+                                quality.</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>🛠 Operational Efficiency</h3>
+                        <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
+                            <li><strong>Staff scheduling:</strong> Match staffing levels to busy vs. quiet hours.</li>
+                            <li><strong>Inventory management:</strong> Forecast ingredient usage to reduce waste.</li>
+                            <li><strong>Supply chain planning:</strong> Order stock based on predicted demand.</li>
+                            <li><strong>Queue management:</strong> Track wait times to improve service speed.</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>📈 Strategic Growth</h3>
+                        <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
+                            <li><strong>Market insights:</strong> Compare performance across locations or regions.</li>
+                            <li><strong>Seasonality detection:</strong> Spot patterns (weekends, holidays, weather
+                                effects).</li>
+                            <li><strong>Expansion planning:</strong> Use data to decide where to open the next branch.
+                            </li>
+                            <li><strong>Benchmarking:</strong> Compare against industry averages or competitors.</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>&#129302; Machine Learning &amp; Advanced Analytics</h3>
+                        <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
+                            <li><strong>Sales forecasting:</strong> Predict future demand using time series models.</li>
+                            <li><strong>Recommendation systems:</strong> Suggest dishes or combos to customers.</li>
+                            <li><strong>Churn prediction:</strong> Identify customers who stop visiting and re-engage
+                                them.</li>
+                            <li><strong>Anomaly detection:</strong> Spot unusual sales drops or inventory issues
+                                quickly.</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- DATA TO COLLECT -->
+        <section id="data-collection">
+            <div class="container">
+                <div class="kicker">Data Strategy</div>
+                <h2>📋 What Data to Collect</h2>
+                <div class="grid grid-2" style="margin-top:1rem">
+                    <article class="card">
+                        <h3>💳 Sales Transactions</h3>
+                        <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
+                            <li><strong>Date &amp; time:</strong> Timestamp of purchase.</li>
+                            <li><strong>Items ordered:</strong> Menu item IDs, categories.</li>
+                            <li><strong>Quantity &amp; price:</strong> Volume and revenue per item.</li>
+                            <li><strong>Payment method:</strong> Cash, card, online.</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>👥 Customer Information</h3>
+                        <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
+                            <li><strong>Group size:</strong> Number of customers per table/order.</li>
+                            <li><strong>Contact info:</strong> Email/phone (optional for loyalty).</li>
+                            <li><strong>Demographics:</strong> Age group, gender (only if ethically collected).</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>🛠 Operational Data</h3>
+                        <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
+                            <li><strong>Staffing:</strong> Shifts and hours worked.</li>
+                            <li><strong>Inventory:</strong> Ingredients consumed, stock levels.</li>
+                            <li><strong>Wait times:</strong> Order placed → food served.</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>🌦 Environmental Data</h3>
+                        <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
+                            <li><strong>Weather:</strong> Temperature, rain (affects sales).</li>
+                            <li><strong>Events:</strong> Holidays, sports games, local festivals.</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW TO COLLECT -->
+        <section id="how-to-collect">
+            <div class="container">
+                <div class="kicker">Implementation</div>
+                <h2>🛠 How to Collect It</h2>
+                <div class="grid grid-2" style="margin-top:1rem">
+                    <article class="card">
+                        <h3>🖥 Point of Sale (POS)</h3>
+                        <p>Most restaurants use POS software that automatically logs transactions.</p>
+                        <p style="margin-top:0.5rem;font-size:0.9rem" class="muted">Examples: Square, Toast, Lightspeed.
+                        </p>
+                    </article>
+                    <article class="card">
+                        <h3>📝 Manual Logs</h3>
+                        <p>Use spreadsheets to record daily sales, customer counts, and inventory.</p>
+                        <p style="margin-top:0.5rem;font-size:0.9rem" class="muted">Simple but effective for small
+                            setups.</p>
+                    </article>
+                    <article class="card">
+                        <h3>📱 Customer Feedback</h3>
+                        <p>Paper forms, QR code surveys, or apps to collect satisfaction ratings.</p>
+                    </article>
+                    <article class="card">
+                        <h3>📡 IoT / Sensors (Advanced)</h3>
+                        <p>Smart counters for foot traffic or kitchen sensors for inventory tracking.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY PARTNER -->
+        <section id="why">
+            <div class="container">
+                <div class="kicker">Why Partner With Us</div>
+                <h2>We are your innovation partners</h2>
+                <div class="grid grid-2" style="margin-top:1rem">
+                    <article class="card">
+                        <h3>&#129504; Human Expertise</h3>
+                        <p>Solutions built by professional Data Scientists &amp; ML Engineers — not just black-box
+                            tools.</p>
+                    </article>
+                    <article class="card">
+                        <h3>✅ Practical AI &amp; Applied ML</h3>
+                        <p>We focus on measurable business outcomes and clear ROI — not hype.</p>
+                    </article>
+                    <article class="card">
+                        <h3>🤝 Collaborative Partnership</h3>
+                        <p>We co-create with your team and transfer knowledge for long-term success.</p>
+                    </article>
+                    <article class="card">
+                        <h3>⚖️ Ethical &amp; GDPR-Aligned</h3>
+                        <p>Privacy by design, transparency, and robust governance from day one.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESS -->
+        <section id="process">
+            <div class="container">
+                <div class="kicker">Our 4-Step Process — From Data to Waste Reduction</div>
+                <h2>Simple path to measurable impact</h2>
+                <div class="timeline" style="margin-top:1rem">
+                    <div class="step">
+                        <h3>STEP 1 — Assessment &amp; Data Consultation</h3>
+                        <p>We analyze current operations, identify waste sources, and set measurable sustainability
+                            goals.</p>
+                    </div>
+                    <div class="step">
+                        <h3>STEP 2 — Data Integration &amp; Model Design</h3>
+                        <p>We connect POS, menus, weather, and sales data and design a custom forecasting model for
+                            accurate demand
+                            prediction.</p>
+                    </div>
+                    <div class="step">
+                        <h3>STEP 3 — ML Model Build and Validation</h3>
+                        <p>We launch a mixx pilot in one or two kitchens, compare predicted vs. actual demand, and
+                            refine using
+                            staff feedback.</p>
+                    </div>
+                    <div class="step">
+                        <h3>STEP 4 — Deployment &amp; Ongoing Support</h3>
+                        <p>We scale across your sites, train your team, and provide real-time dashboards for waste, CO₂
+                            savings, and
+                            performance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESULT -->
+        <section id="result">
+            <div class="container">
+                <div class="kicker">Result</div>
+                <div class="card">
+                    <h2>Smarter production, lower costs, measurable sustainability.</h2>
+                    <p>With mixx, every meal served becomes a step toward Finland’s zero-waste future.</p>
+                    <div class="cta">
+                        <a class="btn btn--primary" href="https://meherix.com/contact.html">Start a Project</a>
+                        <a class="btn btn--ghost" href="#dash">Preview Dashboards</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD PREVIEW -->
+        <section id="dash">
+            <div class="container">
+                <div class="kicker">Dashboards</div>
+                <h2>Chef &amp; Manager Views</h2>
+                <div class="grid grid-2" style="margin-top:1rem">
+                    <div class="card">
+                        <h3>Today’s Prep (Chef)</h3>
+                        <div class="mock">Place your kitchen prep dashboard image here</div>
+                    </div>
+                    <div class="card">
+                        <h3>Trends &amp; Savings (Manager)</h3>
+                        <div class="mock">Place your KPI / CO₂ / cost dashboard image here</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT (NO FORM, JUST LINK) -->
+        <section id="contact">
+            <div class="container">
+                <div class="kicker">Get in touch</div>
+                <h2>Book a 30-minute discovery call</h2>
+                <p class="muted" style="max-width:32rem">
+                    We handle all inbound contacts through our main MEHErix contact page. Share a bit about your
+                    kitchens,
+                    locations, and current challenges — we’ll get back to you with a tailored pilot proposal.
+                </p>
+                <div class="cta">
+                    <a class="btn btn--primary" href="https://meherix.com/contact.html">
+                        Go to MEHErix Contact Page
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="grid grid-2">
+                <p>© <span id="year"></span> mixx — Built by <a href="https://meherix.com/">MEHErix</a> (Finland based
+                    tech startup). All
+                    rights reserved.</p>
+                <p style="text-align:right"><a href="privacy_mixx.html">Privacy</a> &nbsp;&nbsp; <a
+                        href="terms_mixx.html">Terms
+                        and Conditions</a> &nbsp;&nbsp; <a href="#top">Back to top ↑</a></p>
+            </div>
         </div>
-      </div>
-    </section>
+    </footer>
 
-    <!-- MORE SERVICES -->
-    <section id="more-services">
-      <div class="container">
-        <div class="kicker">Expansion</div>
-        <h2>See all the ways we can help you</h2>
-        <div class="grid grid-3" style="margin-top:1rem">
-          <article class="card">
-            <h3>Business &amp; financial purposes</h3>
-            <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
-              <li><strong>Revenue tracking:</strong> Monitor daily income and compare against targets.
-              </li>
-              <li><strong>Profitability analysis:</strong> See which menu items bring the highest margins.
-              </li>
-              <li><strong>Cash flow planning:</strong> Predict when you’ll need more working capital.</li>
-              <li><strong>Investment decisions:</strong> Use data to justify expansion or marketing spend.
-              </li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>🍽 Menu &amp; Customer Experience</h3>
-            <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
-              <li><strong>Menu optimization:</strong> Identify best-selling dishes vs. items that rarely
-                sell.</li>
-              <li><strong>Dynamic pricing:</strong> Adjust prices based on demand (e.g., happy hour
-                discounts).</li>
-              <li><strong>Personalized offers:</strong> Recommend dishes to repeat customers based on past
-                orders.</li>
-              <li><strong>Customer satisfaction:</strong> Link sales with feedback to improve service
-                quality.</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>🛠 Operational Efficiency</h3>
-            <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
-              <li><strong>Staff scheduling:</strong> Match staffing levels to busy vs. quiet hours.</li>
-              <li><strong>Inventory management:</strong> Forecast ingredient usage to reduce waste.</li>
-              <li><strong>Supply chain planning:</strong> Order stock based on predicted demand.</li>
-              <li><strong>Queue management:</strong> Track wait times to improve service speed.</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>📈 Strategic Growth</h3>
-            <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
-              <li><strong>Market insights:</strong> Compare performance across locations or regions.</li>
-              <li><strong>Seasonality detection:</strong> Spot patterns (weekends, holidays, weather
-                effects).</li>
-              <li><strong>Expansion planning:</strong> Use data to decide where to open the next branch.
-              </li>
-              <li><strong>Benchmarking:</strong> Compare against industry averages or competitors.</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>&#129302; Machine Learning &amp; Advanced Analytics</h3>
-            <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
-              <li><strong>Sales forecasting:</strong> Predict future demand using time series models.</li>
-              <li><strong>Recommendation systems:</strong> Suggest dishes or combos to customers.</li>
-              <li><strong>Churn prediction:</strong> Identify customers who stop visiting and re-engage
-                them.</li>
-              <li><strong>Anomaly detection:</strong> Spot unusual sales drops or inventory issues
-                quickly.</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-    <!-- DATA TO COLLECT -->
-    <section id="data-collection">
-      <div class="container">
-        <div class="kicker">Data Strategy</div>
-        <h2>📋 What Data to Collect</h2>
-        <div class="grid grid-2" style="margin-top:1rem">
-          <article class="card">
-            <h3>💳 Sales Transactions</h3>
-            <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
-              <li><strong>Date &amp; time:</strong> Timestamp of purchase.</li>
-              <li><strong>Items ordered:</strong> Menu item IDs, categories.</li>
-              <li><strong>Quantity &amp; price:</strong> Volume and revenue per item.</li>
-              <li><strong>Payment method:</strong> Cash, card, online.</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>👥 Customer Information</h3>
-            <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
-              <li><strong>Group size:</strong> Number of customers per table/order.</li>
-              <li><strong>Contact info:</strong> Email/phone (optional for loyalty).</li>
-              <li><strong>Demographics:</strong> Age group, gender (only if ethically collected).</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>🛠 Operational Data</h3>
-            <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
-              <li><strong>Staffing:</strong> Shifts and hours worked.</li>
-              <li><strong>Inventory:</strong> Ingredients consumed, stock levels.</li>
-              <li><strong>Wait times:</strong> Order placed → food served.</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>🌦 Environmental Data</h3>
-            <ul style="padding-left:1.2rem;margin:0.5rem 0 0">
-              <li><strong>Weather:</strong> Temperature, rain (affects sales).</li>
-              <li><strong>Events:</strong> Holidays, sports games, local festivals.</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
+        function toggleNav() {
+            const navLinks = document.querySelector('.navlinks');
+            const toggleBtn = document.querySelector('.nav__toggle');
+            if (!navLinks || !toggleBtn) return;
 
-    <!-- HOW TO COLLECT -->
-    <section id="how-to-collect">
-      <div class="container">
-        <div class="kicker">Implementation</div>
-        <h2>🛠 How to Collect It</h2>
-        <div class="grid grid-2" style="margin-top:1rem">
-          <article class="card">
-            <h3>🖥 Point of Sale (POS)</h3>
-            <p>Most restaurants use POS software that automatically logs transactions.</p>
-            <p style="margin-top:0.5rem;font-size:0.9rem" class="muted">Examples: Square, Toast, Lightspeed.
-            </p>
-          </article>
-          <article class="card">
-            <h3>📝 Manual Logs</h3>
-            <p>Use spreadsheets to record daily sales, customer counts, and inventory.</p>
-            <p style="margin-top:0.5rem;font-size:0.9rem" class="muted">Simple but effective for small
-              setups.</p>
-          </article>
-          <article class="card">
-            <h3>📱 Customer Feedback</h3>
-            <p>Paper forms, QR code surveys, or apps to collect satisfaction ratings.</p>
-          </article>
-          <article class="card">
-            <h3>📡 IoT / Sensors (Advanced)</h3>
-            <p>Smart counters for foot traffic or kitchen sensors for inventory tracking.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+            const isOpen = navLinks.classList.toggle('is-open');
+            toggleBtn.textContent = isOpen ? '✕' : 'Menu';
+        }
 
-    <!-- WHY PARTNER -->
-    <section id="why">
-      <div class="container">
-        <div class="kicker">Why Partner With Us</div>
-        <h2>We are your innovation partners</h2>
-        <div class="grid grid-2" style="margin-top:1rem">
-          <article class="card">
-            <h3>&#129504; Human Expertise</h3>
-            <p>Solutions built by professional Data Scientists &amp; ML Engineers — not just black-box
-              tools.</p>
-          </article>
-          <article class="card">
-            <h3>✅ Practical AI &amp; Applied ML</h3>
-            <p>We focus on measurable business outcomes and clear ROI — not hype.</p>
-          </article>
-          <article class="card">
-            <h3>🤝 Collaborative Partnership</h3>
-            <p>We co-create with your team and transfer knowledge for long-term success.</p>
-          </article>
-          <article class="card">
-            <h3>⚖️ Ethical &amp; GDPR-Aligned</h3>
-            <p>Privacy by design, transparency, and robust governance from day one.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+        function closeNavOnMobile() {
+            const navLinks = document.querySelector('.navlinks');
+            const toggleBtn = document.querySelector('.nav__toggle');
+            if (!navLinks || !toggleBtn) return;
 
-    <!-- PROCESS -->
-    <section id="process">
-      <div class="container">
-        <div class="kicker">Our 4-Step Process — From Data to Waste Reduction</div>
-        <h2>Simple path to measurable impact</h2>
-        <div class="timeline" style="margin-top:1rem">
-          <div class="step">
-            <h3>STEP 1 — Assessment &amp; Data Consultation</h3>
-            <p>We analyze current operations, identify waste sources, and set measurable sustainability
-              goals.</p>
-          </div>
-          <div class="step">
-            <h3>STEP 2 — Data Integration &amp; Model Design</h3>
-            <p>We connect POS, menus, weather, and sales data and design a custom forecasting model for
-              accurate demand
-              prediction.</p>
-          </div>
-          <div class="step">
-            <h3>STEP 3 — ML Model Build and Validation</h3>
-            <p>We launch a mixx pilot in one or two kitchens, compare predicted vs. actual demand, and
-              refine using
-              staff feedback.</p>
-          </div>
-          <div class="step">
-            <h3>STEP 4 — Deployment &amp; Ongoing Support</h3>
-            <p>We scale across your sites, train your team, and provide real-time dashboards for waste, CO₂
-              savings, and
-              performance.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+            if (window.innerWidth <= 720 && navLinks.classList.contains('is-open')) {
+                navLinks.classList.remove('is-open');
+                toggleBtn.textContent = 'Menu';
+            }
+        }
 
-    <!-- RESULT -->
-    <section id="result">
-      <div class="container">
-        <div class="kicker">Result</div>
-        <div class="card">
-          <h2>Smarter production, lower costs, measurable sustainability.</h2>
-          <p>With mixx, every meal served becomes a step toward Finland’s zero-waste future.</p>
-          <div class="cta">
-            <a class="btn btn--primary" href="#contact">Start a Pilot</a>
-            <a class="btn btn--ghost" href="#dash">Preview Dashboards</a>
-          </div>
-        </div>
-      </div>
-    </section>
+        window.addEventListener('resize', () => {
+            const navLinks = document.querySelector('.navlinks');
+            const toggleBtn = document.querySelector('.nav__toggle');
+            if (!navLinks || !toggleBtn) return;
 
-    <!-- DASHBOARD PREVIEW -->
-    <section id="dash">
-      <div class="container">
-        <div class="kicker">Dashboards</div>
-        <h2>Chef &amp; Manager Views</h2>
-        <div class="grid grid-2" style="margin-top:1rem">
-          <div class="card">
-            <h3>Today’s Prep (Chef)</h3>
-            <div class="mock">Place your kitchen prep dashboard image here</div>
-          </div>
-          <div class="card">
-            <h3>Trends &amp; Savings (Manager)</h3>
-            <div class="mock">Place your KPI / CO₂ / cost dashboard image here</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="container">
-        <div class="kicker">Get in touch</div>
-        <h2>Book a 30-minute discovery call</h2>
-        <div class="grid grid-2" style="margin-top:1rem">
-          <form class="card" onsubmit="event.preventDefault(); alert('Thank you! We will contact you.');">
-            <label>
-              Name<br>
-              <input required style="width:100%;padding:.8rem;border:1px solid var(--line);border-radius:10px"
-                placeholder="Your name" />
-            </label><br>
-            <label>
-              Email<br>
-              <input type="email" required
-                style="width:100%;padding:.8rem;border:1px solid var(--line);border-radius:10px"
-                placeholder="you@company.com" />
-            </label><br>
-            <label>
-              Message<br>
-              <textarea rows="4" style="width:100%;padding:.8rem;border:1px solid var(--line);border-radius:10px"
-                placeholder="Tell us about your kitchens"></textarea>
-            </label><br>
-            <button class="btn btn--primary" type="submit">Request Call</button>
-          </form>
-          <div class="card">
-            <h3>What we’ll cover</h3>
-            <ul>
-              <li>Waste hotspots &amp; data readiness</li>
-              <li>Forecast targets &amp; menu cadence</li>
-              <li>Pilot scope (1–2 kitchens)</li>
-              <li>Dashboards &amp; success metrics</li>
-            </ul>
-            <p class="muted">Typical pilot: 4–6 weeks • Light IT lift • Clear before/after metrics</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <div class="grid grid-2">
-        <p>© <span id="year"></span> mixx — Built by <a href="https://meherix.com/">MEHErix</a> (Finland based tech startup). All
-          rights reserved.</p>
-        <p style="text-align:right"><a href="privacy_mixx.html">Privacy</a> &nbsp;&nbsp; <a href="terms_mixx.html">Terms
-            and Conditions</a> &nbsp;&nbsp; <a href="#top">Back to top ↑</a></p>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+            if (window.innerWidth > 720) {
+                navLinks.classList.remove('is-open');
+                toggleBtn.textContent = 'Menu';
+            }
+        });
+    </script>
 </body>
-
 
 </html>
